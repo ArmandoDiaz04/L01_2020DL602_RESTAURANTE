@@ -85,5 +85,20 @@ namespace L01_2020DL602.Controllers
 
             return Ok(motorista);
         }
+
+        [HttpGet]
+        [Route("buscar/{filtro}")]
+        public IActionResult FindName(string name)
+        {
+            motoristas? motorista = (from e in _restauranteContexto.motoristas
+                                     where e.nombreMotorista.Contains(name)
+                                     select e).FirstOrDefault();
+
+            if (motorista == null)
+            {
+                return NotFound();
+            }
+            return Ok(motorista);
+        }
     }
 }
